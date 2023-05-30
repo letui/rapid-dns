@@ -91,8 +91,28 @@ func DeleteDomain(c *gin.Context) {
 	}
 }
 
+func Supported(c *gin.Context) {
+	c.JSON(200, OK(db.Domains))
+}
+
 func QueryForRegister(c *gin.Context) {
 	value := c.Query("name")
-	domains := db.ListUsableDomains(value)
-	c.JSON(200, OK(domains))
+	if value == "" {
+		c.JSON(200, Error("查询参数为空"))
+		return
+	}
+
+	d := c.Query("d")
+	if d == "" {
+		domains := db.ListUsableDomains(value)
+		c.JSON(200, OK(domains))
+		return
+	}
+
+	if db.ExistDomain(value + d) {
+		c.JSON(200, OK(nil))
+	} else {
+		c.JSON(200, OK([]string{value + d}))
+	}
+
 }

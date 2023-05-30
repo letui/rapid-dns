@@ -2,10 +2,11 @@ package core
 
 import (
 	"github.com/miekg/dns"
-	"log"
 	"net"
 	"rapid-dns/db"
 )
+
+var Port = "53"
 
 type Server struct {
 }
@@ -16,7 +17,6 @@ func ServeDNS(w dns.ResponseWriter, req *dns.Msg) {
 
 	for _, q := range req.Question {
 		if q.Qtype == dns.TypeA {
-			log.Println(q.Name)
 			ip := db.Query(q.Name)
 			aResp := dns.A{
 				Hdr: dns.RR_Header{
@@ -32,5 +32,5 @@ func ServeDNS(w dns.ResponseWriter, req *dns.Msg) {
 
 func (srv *Server) StartDNS() {
 	dns.HandleFunc(".", ServeDNS)
-	dns.ListenAndServe(":53", "udp", nil)
+	dns.ListenAndServe("0.0.0.0:"+Port, "udp", nil)
 }

@@ -17,6 +17,8 @@ import (
 const SESSION_KEY = "X-SESSION"
 const SESSION_ID = "X-SESSION-ID"
 
+var Port = "8053"
+
 type Server struct {
 }
 
@@ -30,7 +32,7 @@ type Resp struct {
 var vuefs embed.FS
 
 func (srv *Server) StartWeb() {
-
+	gin.SetMode(gin.ReleaseMode)
 	grouter := gin.New()
 	must := template.Must(template.New("").ParseFS(vuefs, "ui/*.html"))
 	grouter.SetHTMLTemplate(must)
@@ -57,13 +59,14 @@ func (srv *Server) StartWeb() {
 	api.POST("/auth/updatePassword", UpdatePassword)
 	api.POST("/auth/register", Register)
 
+	api.GET("/domain/supported", Supported)
 	api.GET("/domain/search", QueryForRegister)
 	api.POST("/domain/new", AddDomain)
 	api.POST("/domain/drop", DeleteDomain)
 	api.POST("/domain/modify", ModifyDomain)
 	api.POST("/domain/list", ListDomains)
 
-	grouter.Run("0.0.0.0:8053")
+	grouter.Run("0.0.0.0:" + Port)
 }
 
 func EnableCookieSession() gin.HandlerFunc {

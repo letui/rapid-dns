@@ -12,7 +12,7 @@ var r *bolt.DB
 const USER_BUCKET_NAME = "$:USER"
 const DOMAIN_OWNER = "$:DOMAIN:"
 
-var domain = []string{"dev", "test", "prod", "db", "io", "api", "app"}
+var Domains = []string{"api", "test", "prod", "db", "web", "ui"}
 
 type User struct {
 	Name           string `json:"username"`
@@ -35,7 +35,7 @@ func LoadDefault() {
 	defaultHost := "rapid"
 	user := User{Name: defaultHost, Password: defaultHost}
 	AddNewUser(user)
-	for _, d := range domain {
+	for _, d := range Domains {
 		r.Update(func(tx *bolt.Tx) error {
 			bucket, err := tx.CreateBucketIfNotExists([]byte(d))
 			if err != nil {
@@ -51,13 +51,10 @@ func LoadDefault() {
 
 func ListUsableDomains(name string) []string {
 	var list []string
-	log.Println(name)
 	r.View(func(tx *bolt.Tx) error {
-		for _, d := range domain {
+		for _, d := range Domains {
 			domainBucket := tx.Bucket([]byte(d))
-			log.Println(d + "  " + name)
 			exist := domainBucket.Get([]byte(name))
-			log.Println(exist)
 			if exist == nil {
 				list = append(list, name+"."+d)
 			}
