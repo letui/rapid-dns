@@ -29,4 +29,14 @@
 ## 截图说明
 
 - 首页
-- ![](https://github.com/letui/rapid-ui/blob/master/public/images/homepage.png)
+![image](https://github.com/letui/rapid-ui/blob/master/public/images/homepage.png?raw=true)
+- 登录
+![image](https://github.com/letui/rapid-ui/blob/master/public/images/logindialog.png?raw=true)
+- 我的域名
+![image](https://github.com/letui/rapid-ui/blob/master/public/images/mydomains.png?raw=true)
+- 解析编辑
+![image](https://github.com/letui/rapid-ui/blob/master/public/images/recordsedit.png?raw=true)
+- 域名注册
+![image](https://github.com/letui/rapid-ui/blob/master/public/images/registerdomain.png?raw=true)
+- 解析测试
+![image](https://github.com/letui/rapid-ui/blob/master/public/images/dnstest.png?raw=true)
