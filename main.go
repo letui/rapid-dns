@@ -10,9 +10,9 @@ import (
 )
 
 func main() {
-	dnsPort := os.Getenv("rapid-dns-port")
-	webPort := os.Getenv("rapid-web-port")
-	domainList := os.Getenv("rapid-domain-list")
+	dnsPort := os.Getenv("rapid_dns_port")
+	webPort := os.Getenv("rapid_web_port")
+	domainList := os.Getenv("rapid_domain_list")
 
 	if dnsPort != "" {
 		core.Port = dnsPort
