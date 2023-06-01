@@ -29,4 +29,4 @@
 ## 截图说明
 
 - 首页
-![title 首页]（）
+![title 首页]（https://raw.githubusercontent.com/letui/rapid-ui/master/public/images/homepage.png）
