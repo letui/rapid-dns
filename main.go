@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/boltdb/bolt"
 	"log"
 	"os"
 	"rapid-dns/core"
@@ -26,7 +27,12 @@ func main() {
 	}
 	log.Println("Rapid-DNS")
 	r := db.Init()
-	defer r.Close()
+	defer func(r *bolt.DB) {
+		err := r.Close()
+		if err != nil {
+			log.Fatal("Db got error while closing")
+		}
+	}(r)
 	db.LoadDefault()
 	webSrv := web.Server{}
 	go webSrv.StartWeb()
