@@ -35,7 +35,7 @@ func ServeDNS(w dns.ResponseWriter, req *dns.Msg) {
 				if err != nil {
 					log.Println(err, rtt.String())
 				}
-				if len(in.Answer) > 1 {
+				if len(in.Answer) > 0 {
 					resp.Answer = append(resp.Answer, in.Answer[0])
 				}
 			}
