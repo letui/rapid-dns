@@ -17,6 +17,7 @@ jobs:
           build() {
             export GOOS=$1
             export GOARCH=$2
+            export CGO_ENABLED=0
             go build -ldflags "-s -w" -o release/rapid-dns-${1}-${2}${3} main.go
           }
           build linux arm64
